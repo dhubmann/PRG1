@@ -2,7 +2,7 @@
  * Choices and loops
  * Working with choices and loops
  * Author: Daniel Hubmann
- * Last Change: 02.11.2022
+ * Last Change: 14.11.2022
  */
 
 import java.util.Scanner;
@@ -18,8 +18,8 @@ public class ChoicesAndLoops {
 		boolean keepPrompting = true;
 		int counter = 1;
 		int sum = 0;
-		int min = 0;
-		int max = 0;
+		int min = 2147483647;
+		int max = -2147483648;
 
 		// PART 1: ENTER AMOUNT
 		while (keepPrompting) {
@@ -38,6 +38,7 @@ public class ChoicesAndLoops {
 			}
 		}
 
+		// TO-DO: Min Max Berechnung fixen
 		// PART 2: ENTER VALUES
 		while (counter <= amount) {
 			System.out.print(counter + "#: ");
@@ -45,7 +46,7 @@ public class ChoicesAndLoops {
 				int value = scanner.nextInt();
 				if (scanner.nextLine().equals("")) {
 					sum += value;
-					min = value < min || min == 0 ? value : min;
+					min = value < min ? value : min;	
 					max = value > max ? value : max;
 					counter++;
 				} 
@@ -64,10 +65,10 @@ public class ChoicesAndLoops {
 		double mean = (sum * 1.0) / amount;
 		System.out.printf("Mean = %.2f\n", mean);
 		System.out.printf("Reciprocal of mean = %.2f\n", (1 / mean));
-		System.out.println("Additive inverse of mean = " + (mean * (-1)));
-
+		System.out.printf("Additive inverse of mean = %.2f\n", (mean*(-1)));
+		
 		double absValOfMean = mean >= 0 ? mean : (mean * (-1));
-		System.out.println("Absolute value of mean = " + absValOfMean);
+		System.out.printf("Absolute value of mean = %.2f\n", absValOfMean);
 
 		int delta = max - min;
 		System.out.println("Delta of minimum and maximum = " + delta);

@@ -1,113 +1,239 @@
 /* 
  * Methods
  * Working with methods
- * Author: Daniel Hubmann
- * Last Change: 31.10.2022
+ * dh
+ * Last Change: 10.11.2022
  */
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestMethods {
 
-	// What's the point of "return"
-	// Should I print to the console and return???
-
-	// MINIMUM
-	// returns the minimum between two integers
-	public static int min(int a, int b) {
-		int min = (a < b) ? a : b;
-		System.out.printf("min(%d,%d) = %d\n", a, b, min);
-		return min;
+	// Reads positive integer from user
+	public static int readNumber(Scanner scanner) {
+		boolean keepPrompting = true;
+		int input = 0;
+		while (keepPrompting) {
+			System.out.print("Enter a positive number: ");
+			if (scanner.hasNextInt()) {
+				input = scanner.nextInt();
+				if (input > 0 && scanner.nextLine().equals("")) {
+					keepPrompting = false;
+				} else if (input < 1 && scanner.nextLine().equals("")) {
+					continue;
+				} else {
+					continue;
+				}
+			} else {
+				scanner.nextLine();
+			}
+		}
+		return input;
 	}
 
-	// MAXIMUM
-	// returns the maximum between two integers
-	public static int max(int a, int b) {
-		int max = (a > b) ? a : b;
-		System.out.printf("max(%d,%d) = %d\n", a, b, max);
-		return max;
+	// Determines minimum between two integers
+	public static int minFunction(int a, int b) {
+		int min;
+		return min = (a < b) ? a : b;
 	}
 
-	// SUM
-	// calculates the sum of two integers
-	public static int sum(int a, int b) {
-		int sum = a + b;
-		System.out.printf("sum(%d,%d) = %d\n", a, b, sum);
-		return sum;
+	// Determines maximum between two integers
+	public static int maxFunction(int a, int b) {
+		int max;
+		return max = (a > b) ? a : b;
+	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	///////////////////////////////////////////////////////////////////////////////
+
+	// Prime function with only one parameter
+	public static void primeFunction(int numToCheck) {
+		boolean isPrime = true;
+		int counter = numToCheck - 2;
+
+		if (numToCheck < 2) {
+			System.out.println("Number is not prime!");
+		}
+
+		if (numToCheck == 2) {
+			System.out.println(numToCheck + " is prime!");
+		}
+
+		for (int factor = 2; factor < numToCheck; factor++) {
+			if (numToCheck % factor == 0) {
+				isPrime = false;
+				System.out.println("Number is not prime!");
+				break;
+			} else {
+				System.out.println(numToCheck + " is prime!");
+				counter--;
+			}
+		}
+
+		if (counter == 0) {
+			System.out.println(numToCheck + " is really prime!");
+		}
+
+	}
+
+	// Prime function with two integers
+	public static List<Integer> primeFun(int a, int b) {
+		int start = minFunction(a, b);
+		int end = maxFunction(a, b);
+		List<Integer> primes = new ArrayList<Integer>();
+
+		for (int numToCheck = start; numToCheck <= end; numToCheck++) {
+			int counter = 0;
+
+			if (numToCheck < 2) {
+				counter++;
+			}
+
+			for (int factor = 2; factor <= numToCheck / 2; factor++) {
+
+				if (numToCheck == 2) {
+					primes.add(numToCheck);
+					break;
+				}
+
+				if (numToCheck % factor == 0) {
+					// isPrime = false;
+					// System.out.println("Number is not prime!");
+					counter++;
+					break;
+				}
+
+			}
+
+			if (counter == 0) {
+				primes.add(numToCheck);
+			}
+
+		}
+
+		return primes;
+
+	}
+
+	public static PrimeNumber primeF(int a, int b) {
+		PrimeNumber p = new PrimeNumber();
+		int start = minFunction(a, b);
+		int end = maxFunction(a, b);
+
+		for (int numToCheck = start; numToCheck <= end; numToCheck++) {
+			int counter = numToCheck - 2;
+			if (numToCheck == 2) {
+				p.value = numToCheck;
+			}
+			for (int factor = 2; factor < numToCheck; factor++) {
+				if (numToCheck % factor == 0) {
+					// isPrime = false;
+					// System.out.println("Number is not prime!");
+					break;
+				} else {
+					// System.out.println(numToCheck + " is prime!");
+					counter--;
+				}
+				if (counter == 0) {
+					p.value = numToCheck;
+				}
+			}
+		}
+
+		return p;
+	}
+
+	// Checking if number is prime
+	public static boolean isPrime(int input) {
+		int counter = 0;
+
+		if (input < 2) {
+			return false;
+		}
+
+		if (input == 2) {
+			return true;
+		}
+
+		for (int factor = 2; factor <= input / 2; factor++) {
+
+			if (input % factor == 0) {
+				counter++;
+			}
+
+		}
+
+		if (counter == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
-	// SUM FROM TO
-	// calculates sum from minimum to maximum (inclusive(
-	public static int sumFromTo(int a, int b) {
-		int sum = 0;
-		int min = (a < b) ? a : b;
-		int max = (a > b) ? a : b;
-		for(int i = min; i <= max; i++) {
-			sum += i;
+	// Prints prime numbers within a range
+	public static void newPrimeFunction (int a, int b) {
+		int start = minFunction(a, b);
+		int end = maxFunction(a, b);
+		int numCount = 0;
+		int commaCount = 0;
+		
+		// Create number count
+		for (int i = start; i <= end; i++) {
+			if(isPrime(i)) {
+				numCount++;
+			}
 		}
-		System.out.printf("sumFromTo(%d,%d) = %d\n", a, b, sum);
-		return sum;
+		System.out.println("numCount: " + numCount);
+		
+		commaCount = numCount-1; // 4 (when 5 numbers)
+		
+		String result = "primes(" + start + "," + end + ") = {";
+		System.out.print(result);
+		
+		for (int i = start; i <= end; i++) {
+			if(isPrime(i)) {
+				System.out.print(i);
+				if(commaCount!=0) {
+					System.out.print(", ");
+					commaCount--;
+				}
+			}
+			
+		}
+		// System.out.print(numbers);
+		System.out.print("}");
+		
+		
 	}
+
+	///////////////////////////////////////////////////////////////////////////////
+	//
+	//
+	//
+	///////////////////////////////////////////////////////////////////////////////
 
 	public static void main(String[] args) {
 
-		Scanner s = new Scanner(System.in);
-		boolean invalid = true;
-		int num1 = 0;
-		int num2 = 0;
+		Scanner scanner = new Scanner(System.in);
 
-		// prompt for first number
-		// check if entered value is an integer and greater than 0
-		// System.out.println("1st #");
-		System.out.print("Enter a positive number: ");
-		while (invalid) {
-			if (s.hasNextInt()) {
-				num1 = s.nextInt();
-				if (num1 <= 0) {
-					s.nextLine();
-					// System.out.println("1st #");
-					System.out.print("Enter a positive number: ");
-					continue;
-				} else {
-					invalid = false;
-				}
-			} else {
-				s.nextLine();
-				// System.out.println("1st #");
-				System.out.print("Enter a positive number: ");
-				continue;
-			}
-		}
+		int num1 = readNumber(scanner);
+		int num2 = readNumber(scanner);
 
-		// reset invalid to true to prompt for second number
-		// check second value the same way as first value
-		invalid = true;
-		// System.out.println("2nd #");
-		System.out.print("Enter a positive number ");
-		while (invalid) {
-			if (s.hasNextInt()) {
-				num2 = s.nextInt();
-				if (num2 <= 0) {
-					s.nextLine();
-					// System.out.println("1st #");
-					System.out.print("Enter a positive number ");
-					continue;
-				} else {
-					invalid = false;
-				}
-			} else {
-				s.nextLine();
-				// System.out.println("1st #");
-				System.out.print("Enter a positive number ");
-				continue;
-			}
-		}
+		// gcdFunction(num1, num2);
+		// primeFunction(num1, num2);
 
-		// Print solutions
-		min(num1, num2);
-		max(num1, num2);
-		sum(num1, num2);
-		sumFromTo(num1, num2);
+		// primeFun(num1, num2);
+
+		newPrimeFunction(num1, num2);
+	
+
+		// System.out.printf("primes(%d,%d) = {%s}\n", num1, num2, primeFun(num1,
+		// num2));
 
 	}
 
